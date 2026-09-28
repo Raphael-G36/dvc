@@ -4,21 +4,20 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+
   "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
   },
+
   "customizations": {
     "vscode": {
       "extensions": [
         "NomicFoundation.hardhat-solidity",
         "tintinweb.solidity-visual-auditor"
-      ],
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.profiles.linux": { "zsh": { "path": "/usr/bin/zsh" } }
-      }
+      ]
     }
-  },
-
-  "postCreateCommand": "zsh"
+  }
 }
 

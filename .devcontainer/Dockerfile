@@ -1,35 +1,37 @@
-# Base debian build (latest).
+
+# Base Debian image
 FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
-# Update packages.
-RUN apt-get update
+# Update packages and install required tools
+RUN apt-get update && \
+    apt-get install -y \
+    pipx \
+    zsh \
+    curl \
+    git \
+    build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install pipx
-RUN apt-get install -y pipx
-
-# Set the default shell to zsh
+# Set zsh as the default shell
 ENV SHELL=/usr/bin/zsh
 
-# Running everything under zsh
-SHELL ["/usr/bin/zsh", "-c"]
-
-# Dropping privileges
+# Switch to vscode user
 USER vscode
 
-# Install rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-# Install nvm, yarn, npm, pnpm
-RUN curl -o- https://raw.githubusercontent.com/devcontainers/features/main/src/node/install.sh | sudo bash
+ENV PATH="/home/vscode/.cargo/bin:${PATH}"
 
 # Install solc-select
 RUN pipx install solc-select
 
-# Foundry
-RUN curl -L https://foundry.paradigm.xyz | zsh
+# Install Foundry
+RUN curl -L https://foundry.paradigm.xyz | bash
+
+ENV PATH="/home/vscode/.foundry/bin:${PATH}"
 
 RUN foundryup
 
-# Clean up
-RUN sudo apt-get autoremove -y && sudo apt-get clean -y
-
+# Return to vscode user
+USER vscode

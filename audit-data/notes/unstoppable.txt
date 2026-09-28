@@ -1,0 +1,31 @@
+The Unstopable contract is a vault that uses the ERC4626 protocol.
+
+It's main assets is an ERC20 token with the symbol DVT
+there are 1 million of this token in the vault'
+
+it has it vaults tokens called tDVT, which i presume it gives to the depositors of DVT as shares.
+
+
+"It’s offering flash loans for free, until the grace period ends."
+
+So there is a grace period for the free loan to run for.
+
+does it actually run till the end of the grace period?
+
+is there a way the grace period can be altered or bypassed?
+
+can i still take flash loan after the Grace period?
+
+who can interact with the set grace period?
+No fee when collecting the loan i beleive..
+
+
+Because it is a vault..
+
+I should be able to deposit my token and get the a share in (tDVT) back.
+
+
+
+
+
+
