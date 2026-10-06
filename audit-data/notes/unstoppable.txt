@@ -25,6 +25,9 @@ Because it is a vault..
 I should be able to deposit my token and get the a share in (tDVT) back.
 
 
+Entry Points.
+UnstoppableVault::flashLoan()
+
 
 
 

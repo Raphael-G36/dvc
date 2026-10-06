@@ -91,6 +91,9 @@ contract UnstoppableChallenge is Test {
      * CODE YOUR SOLUTION HERE
      */
     function test_unstoppable() public checkSolvedByPlayer {
+        vm.prank(player);
+        vault.flashFee(token, 100e18);
+        
         
     }
 
