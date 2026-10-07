@@ -106,25 +106,18 @@ contract UnstoppableVault is
         //@question can i enter a negative amount? if yes, what will happen?
         if (amount == 0) revert InvalidAmount(0); // fail early
 
-        if (address(asset) != _token) revert UnsupportedCurrency(); // enforce ERC3156 requirement
-        // @note totalAssets() is the total amount of underlying assets(The main ERC-20 token like ETH or DVT or any other ERC-20 token) in the vault.
-        // @note convertToShares(totalSupply) is the total amount of shares in the vault.
+        if (address(asset) != _token) revert UnsupportedCurrency(); // enforce ERC3156
         uint256 balanceBefore = totalAssets();
-        // @question where is totalSupply coming from? totalSupply is a function in ERC4626 that returns the total amount of shares in the vault. Does this include those that have been issued already?
 
-        //@note they are asuming this works at a ratio of 1:1
         if (convertToShares(totalSupply) != balanceBefore)
             revert InvalidBalance(); // enforce ERC4626 requirement
 
         // transfer tokens out + execute callback on receiver
         ERC20(_token).safeTransfer(address(receiver), amount);
 
-        // @note from research flashFee() caculates how much the borrower has to payback to the vault.
-
         // callback must return magic value, otherwise assume it failed
         uint256 fee = flashFee(_token, amount);
 
-        // @question what is this condition checking for?
         if (
             receiver.onFlashLoan(
                 msg.sender,
