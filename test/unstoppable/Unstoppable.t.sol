@@ -91,7 +91,7 @@ contract UnstoppableChallenge is Test {
      * CODE YOUR SOLUTION HERE
      */
     function test_unstoppable() public checkSolvedByPlayer {
-        //a
+        //@audit directly transferred the 1e18DVT to the vault address, using the standard ERC20 transfer function. since the bank has no payable function, we can  forcefully transfer more DVT tokens to the vault to upset the balance and successfully pause the contract.  
         token.transfer(address(vault), 1e18); 
     }
 
