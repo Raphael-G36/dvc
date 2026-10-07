@@ -65,10 +65,7 @@ contract UnstoppableVault is
     /**
      * @inheritdoc IERC3156FlashLender
      */
-    function flashFee(
-        address _token,
-        uint256 _amount
-    ) public view returns (uint256 fee) {
+    function flashFee( address _token, uint256 _amount ) public view returns (uint256 fee) {
         if (address(asset) != _token) {
             revert UnsupportedCurrency();
         }
